@@ -1,0 +1,1580 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Profile Data Center",
+        "version": "v1"
+    },
+    "paths": {
+        "/api/Event/{subpath}": {
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Performs an OData search for event details.",
+                "description": "Use this endpoint to perform OData searches against event details. See <a href='https://www.odata.org'>https://www.odata.org</a> for more information about OData.",
+                "operationId": "Search for event details.",
+                "parameters": [
+                    {
+                        "name": "subpath",
+                        "in": "path",
+                        "description": "An optional path into the sub-properties of the event.",
+                        "schema": {
+                            "type": "path"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "description": "A function that must evaluate to true for a record to be returned",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$expand",
+                        "in": "query",
+                        "description": "Expands related entities inline.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "in": "query",
+                        "description": "Specifies a subset of properties to return.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$count",
+                        "in": "query",
+                        "description": "Return the total count.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Event Detail Schema",
+                                    "required": [
+                                        "eventName",
+                                        "id"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "documentType": {
+                                            "type": "object"
+                                        },
+                                        "id": {
+                                            "pattern": "^[1-9]\\d*$",
+                                            "type": "string",
+                                            "description": "The event ID for this event."
+                                        },
+                                        "eventName": {
+                                            "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                            "type": "string",
+                                            "description": "The name of the event."
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "description": "The event's description."
+                                        },
+                                        "startDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional start date for the event."
+                                        },
+                                        "endDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional end date for the event."
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No results for the search could be found."
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    }
+                }
+            }
+        },
+        "/api/Event('{id}')": {
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Returns the details for an event by it's Id",
+                "description": "Use this endpoint to return the details for a single event. You can use OData to shape the results. See <a href='https://www.odata.org'>https://www.odata.org</a> for more information about OData.",
+                "operationId": "Get an event'details",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The unique Id for the requested event.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "description": "A function that must evaluate to true for a record to be returned",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$expand",
+                        "in": "query",
+                        "description": "Expands related entities inline.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "in": "query",
+                        "description": "Specifies a subset of properties to return.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$count",
+                        "in": "query",
+                        "description": "Return the total count.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "subpath",
+                        "description": "An optional path into the sub-properties of the event.",
+                        "schema": {
+                            "type": "path"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Event Detail Schema",
+                                    "required": [
+                                        "eventName",
+                                        "id"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "documentType": {
+                                            "type": "object"
+                                        },
+                                        "id": {
+                                            "pattern": "^[1-9]\\d*$",
+                                            "type": "string",
+                                            "description": "The event ID for this event."
+                                        },
+                                        "eventName": {
+                                            "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                            "type": "string",
+                                            "description": "The name of the event."
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "description": "The event's description."
+                                        },
+                                        "startDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional start date for the event."
+                                        },
+                                        "endDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional end date for the event."
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Returned if the requested event Id could not be found."
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    }
+                }
+            }
+        },
+        "/api/Event": {
+            "post": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Create event details for a new event.",
+                "operationId": "Create Event Details",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Event Detail Schema",
+                                "required": [
+                                    "eventName",
+                                    "id"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "documentType": {
+                                        "type": "object"
+                                    },
+                                    "id": {
+                                        "pattern": "^[1-9]\\d*$",
+                                        "type": "string",
+                                        "description": "The event ID for this event."
+                                    },
+                                    "eventName": {
+                                        "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                        "type": "string",
+                                        "description": "The name of the event."
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "The event's description."
+                                    },
+                                    "startDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional start date for the event."
+                                    },
+                                    "endDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional end date for the event."
+                                    },
+                                    "_ts": {
+                                        "type": "integer",
+                                        "description": "The timestamp in epoch time."
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "title": "Event Detail Schema",
+                                "required": [
+                                    "eventName",
+                                    "id"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "documentType": {
+                                        "type": "object"
+                                    },
+                                    "id": {
+                                        "pattern": "^[1-9]\\d*$",
+                                        "type": "string",
+                                        "description": "The event ID for this event."
+                                    },
+                                    "eventName": {
+                                        "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                        "type": "string",
+                                        "description": "The name of the event."
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "The event's description."
+                                    },
+                                    "startDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional start date for the event."
+                                    },
+                                    "endDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional end date for the event."
+                                    },
+                                    "_ts": {
+                                        "type": "integer",
+                                        "description": "The timestamp in epoch time."
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Event Detail Schema",
+                                    "required": [
+                                        "eventName",
+                                        "id"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "documentType": {
+                                            "type": "object"
+                                        },
+                                        "id": {
+                                            "pattern": "^[1-9]\\d*$",
+                                            "type": "string",
+                                            "description": "The event ID for this event."
+                                        },
+                                        "eventName": {
+                                            "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                            "type": "string",
+                                            "description": "The name of the event."
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "description": "The event's description."
+                                        },
+                                        "startDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional start date for the event."
+                                        },
+                                        "endDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional end date for the event."
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The Event provided in the body is invalid. The details will be in the response."
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Replace existing event details with new values.",
+                "operationId": "Replace Event Details",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Event Detail Schema",
+                                "required": [
+                                    "eventName",
+                                    "id"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "documentType": {
+                                        "type": "object"
+                                    },
+                                    "id": {
+                                        "pattern": "^[1-9]\\d*$",
+                                        "type": "string",
+                                        "description": "The event ID for this event."
+                                    },
+                                    "eventName": {
+                                        "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                        "type": "string",
+                                        "description": "The name of the event."
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "The event's description."
+                                    },
+                                    "startDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional start date for the event."
+                                    },
+                                    "endDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional end date for the event."
+                                    },
+                                    "_ts": {
+                                        "type": "integer",
+                                        "description": "The timestamp in epoch time."
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "title": "Event Detail Schema",
+                                "required": [
+                                    "eventName",
+                                    "id"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "documentType": {
+                                        "type": "object"
+                                    },
+                                    "id": {
+                                        "pattern": "^[1-9]\\d*$",
+                                        "type": "string",
+                                        "description": "The event ID for this event."
+                                    },
+                                    "eventName": {
+                                        "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                        "type": "string",
+                                        "description": "The name of the event."
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "The event's description."
+                                    },
+                                    "startDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional start date for the event."
+                                    },
+                                    "endDate": {
+                                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                        "type": "string",
+                                        "description": "An optional end date for the event."
+                                    },
+                                    "_ts": {
+                                        "type": "integer",
+                                        "description": "The timestamp in epoch time."
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Event Detail Schema",
+                                    "required": [
+                                        "eventName",
+                                        "id"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "documentType": {
+                                            "type": "object"
+                                        },
+                                        "id": {
+                                            "pattern": "^[1-9]\\d*$",
+                                            "type": "string",
+                                            "description": "The event ID for this event."
+                                        },
+                                        "eventName": {
+                                            "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                                            "type": "string",
+                                            "description": "The name of the event."
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "description": "The event's description."
+                                        },
+                                        "startDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional start date for the event."
+                                        },
+                                        "endDate": {
+                                            "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                                            "type": "string",
+                                            "description": "An optional end date for the event."
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The Event provided in the body is invalid. The details will be in the response."
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    },
+                    "404": {
+                        "description": "The Event Id could not be found."
+                    }
+                }
+            }
+        },
+        "/api/Profile/$count": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Returns a count of all the Profiles in a Program.",
+                "operationId": "ProfileCount",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Profile/{subpath}": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Search for Profiles using OData.",
+                "description": "Use the {subpath} to scope odata operations to only part of the Json document or to only have that part of the Json returned. e.g. /events/eventICareAbout2019",
+                "operationId": "ProfileSearch",
+                "parameters": [
+                    {
+                        "name": "subpath",
+                        "in": "path",
+                        "description": "Specify a path starting from the root of the profile to scope to a section of the Json Document.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "description": "A function that must evaluate to true for a record to be returned",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$expand",
+                        "in": "query",
+                        "description": "Expands related entities inline.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "in": "query",
+                        "description": "Specifies a subset of properties to return.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$count",
+                        "in": "query",
+                        "description": "Return the total count.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Profile Schema",
+                                    "required": [
+                                        "email",
+                                        "id",
+                                        "identities"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "identities": {
+                                            "uniqueItems": false,
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Identities"
+                                            }
+                                        },
+                                        "id": {
+                                            "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                            "type": "string",
+                                            "description": "The unique identifier for the profile."
+                                        },
+                                        "email": {
+                                            "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                            "type": "string",
+                                            "description": "The email address for this profile (must be unique)"
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        },
+                                        "contact": {
+                                            "$ref": "#/components/schemas/Contact"
+                                        },
+                                        "events": {
+                                            "$ref": "#/components/schemas/Events"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Returns No Content if there is no Profile found by the search."
+                    }
+                }
+            }
+        },
+        "/api/Profile('{id}')/{subpath}": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get a Profile by id.",
+                "description": "Use the {subpath} to scope OData queries to only part of the Json document or to only have that part of the Json returned. e.g. `/events/eventICareAbout2019` will return only the `eventICareAbout2019` object.",
+                "operationId": "ProfileByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the Profile.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "subpath",
+                        "in": "path",
+                        "description": "Specify a path starting from the root of the profile to scope to a section of the Json Document.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "description": "A function that must evaluate to true for a record to be returned",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$expand",
+                        "in": "query",
+                        "description": "Expands related entities inline.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "in": "query",
+                        "description": "Specifies a subset of properties to return.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "$count",
+                        "in": "query",
+                        "description": "Return the total count.",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Profile Schema",
+                                    "required": [
+                                        "email",
+                                        "id",
+                                        "identities"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "identities": {
+                                            "uniqueItems": false,
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Identities"
+                                            }
+                                        },
+                                        "id": {
+                                            "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                            "type": "string",
+                                            "description": "The unique identifier for the profile."
+                                        },
+                                        "email": {
+                                            "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                            "type": "string",
+                                            "description": "The email address for this profile (must be unique)"
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        },
+                                        "contact": {
+                                            "$ref": "#/components/schemas/Contact"
+                                        },
+                                        "events": {
+                                            "$ref": "#/components/schemas/Events"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Returns No Content if there is no Profile found by the search."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update a Profile using Json PATCH.",
+                "description": "Uses Json PATCH defined by [RFC6902](https://tools.ietf.org/html/rfc6902) to patch an existing profile. Alternatively, Json Merge PATCH defined by [RFC7386](https://tools.ietf.org/html/rfc7386) can be used by changing the content type of the request to application/merge-patch+json.",
+                "operationId": "JsonPatchProfile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the Profile.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "subpath",
+                        "in": "path",
+                        "description": "Specify a path starting from the root of the profile to scope to a section of the Json Document to update. All json patch document paths in the request body will be relative to this path. If doing a merge patch, the merge request object will be relative to the path.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "subpath",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "uniqueItems": false,
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Operation"
+                                }
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "uniqueItems": false,
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Operation"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Profile Schema",
+                                    "required": [
+                                        "email",
+                                        "id",
+                                        "identities"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "identities": {
+                                            "uniqueItems": false,
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Identities"
+                                            }
+                                        },
+                                        "id": {
+                                            "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                            "type": "string",
+                                            "description": "The unique identifier for the profile."
+                                        },
+                                        "email": {
+                                            "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                            "type": "string",
+                                            "description": "The email address for this profile (must be unique)"
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        },
+                                        "contact": {
+                                            "$ref": "#/components/schemas/Contact"
+                                        },
+                                        "events": {
+                                            "$ref": "#/components/schemas/Events"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Returns Bad Request if a property on the Profile violates the Schema."
+                    },
+                    "404": {
+                        "description": "Returns Not Found if a Profile with the specified Id does not exist."
+                    }
+                }
+            }
+        },
+        "/api/Profile": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Create a new Profile.",
+                "description": "Adds a new Profile to the Program. The email property must be unique.",
+                "operationId": "CreateProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Profile Schema",
+                                "required": [
+                                    "email",
+                                    "id",
+                                    "identities"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "identities": {
+                                        "uniqueItems": false,
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Identities"
+                                        }
+                                    },
+                                    "id": {
+                                        "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                        "type": "string",
+                                        "description": "The unique identifier for the profile."
+                                    },
+                                    "email": {
+                                        "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                        "type": "string",
+                                        "description": "The email address for this profile (must be unique)"
+                                    },
+                                    "_ts": {
+                                        "type": "integer",
+                                        "description": "The timestamp in epoch time."
+                                    },
+                                    "contact": {
+                                        "$ref": "#/components/schemas/Contact"
+                                    },
+                                    "events": {
+                                        "$ref": "#/components/schemas/Events"
+                                    }
+                                }
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "title": "Profile Schema",
+                                "required": [
+                                    "email",
+                                    "id",
+                                    "identities"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "identities": {
+                                        "uniqueItems": false,
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Identities"
+                                        }
+                                    },
+                                    "id": {
+                                        "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                        "type": "string",
+                                        "description": "The unique identifier for the profile."
+                                    },
+                                    "email": {
+                                        "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                        "type": "string",
+                                        "description": "The email address for this profile (must be unique)"
+                                    },
+                                    "_ts": {
+                                        "type": "integer",
+                                        "description": "The timestamp in epoch time."
+                                    },
+                                    "contact": {
+                                        "$ref": "#/components/schemas/Contact"
+                                    },
+                                    "events": {
+                                        "$ref": "#/components/schemas/Events"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Profile Schema",
+                                    "required": [
+                                        "email",
+                                        "id",
+                                        "identities"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "identities": {
+                                            "uniqueItems": false,
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Identities"
+                                            }
+                                        },
+                                        "id": {
+                                            "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                            "type": "string",
+                                            "description": "The unique identifier for the profile."
+                                        },
+                                        "email": {
+                                            "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                            "type": "string",
+                                            "description": "The email address for this profile (must be unique)"
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        },
+                                        "contact": {
+                                            "$ref": "#/components/schemas/Contact"
+                                        },
+                                        "events": {
+                                            "$ref": "#/components/schemas/Events"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Returns Bad Request if a property on the Profile violates the Schema."
+                    }
+                }
+            }
+        },
+        "/api/Profile('{id}')": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Adds a set of credentials to an existing Profile.",
+                "description": "The oid and provider must be unique.",
+                "operationId": "AddProfileCredentials",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileCredential"
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileCredential"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Profile Schema",
+                                    "required": [
+                                        "email",
+                                        "id",
+                                        "identities"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "identities": {
+                                            "uniqueItems": false,
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Identities"
+                                            }
+                                        },
+                                        "id": {
+                                            "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                                            "type": "string",
+                                            "description": "The unique identifier for the profile."
+                                        },
+                                        "email": {
+                                            "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                                            "type": "string",
+                                            "description": "The email address for this profile (must be unique)"
+                                        },
+                                        "_ts": {
+                                            "type": "integer",
+                                            "description": "The timestamp in epoch time."
+                                        },
+                                        "contact": {
+                                            "$ref": "#/components/schemas/Contact"
+                                        },
+                                        "events": {
+                                            "$ref": "#/components/schemas/Events"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Returns Bad Request if the credential values are invalid."
+                    },
+                    "404": {
+                        "description": "Returns Not Found if a Profile with the specified Id does not exist."
+                    },
+                    "409": {
+                        "description": "Returns Conflict if the combination of oid and provider already exist on a Profile."
+                    }
+                }
+            }
+        },
+        "/api/ProfileSchema": {
+            "get": {
+                "tags": [
+                    "ProfileSchema"
+                ],
+                "summary": "Gets the requested JSON Schema for profiles.",
+                "description": "Returns a <a href='https://json-schema.org/'>JSON schema</a> for the profile of the current PDC-Program. This schema defines all the fields and field restrictions for profiles in the current program. At this time, only <a href='https://json-schema.org/specification-links.html#draft-6'>draft 6</a> of JSON Schema is supported.",
+                "operationId": "Get Profile Schema",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    },
+                    "404": {
+                        "description": "The schema does not exist."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ProfileSchema"
+                ],
+                "summary": "Replace the existing profile schema with a new one.",
+                "description": "Replaces the existing profile schema with the schema posted in the form body. The schema must comply with <a href='https://json-schema.org/specification-links.html#draft-6'>draft 6</a> of <a href='https://json-schema.org/'>JSON schema</a>.",
+                "operationId": "Replaces the current profile schema",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns the value of the updated schema.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The provided schema is invalid. The details will be in the response."
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    }
+                }
+            }
+        },
+        "/api/Program/{id}": {},
+        "/api/TagSchema": {
+            "put": {
+                "tags": [
+                    "TagSchema"
+                ],
+                "summary": "Replace the existing tag schema with a new one.",
+                "description": "Replaces the existing tag schema with the schema posted in the form body. The schema must comply with <a href='https://json-schema.org/specification-links.html#draft-6'>draft 6</a> of <a href='https://json-schema.org/'>JSON schema</a>.",
+                "operationId": "Replaces the current tag schema",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Tags",
+                                "properties": {
+                                    "tags": {
+                                        "$ref": "#/components/schemas/Tags"
+                                    }
+                                }
+                            }
+                        },
+                        "application/json-patch+json": {
+                            "schema": {
+                                "title": "Tags",
+                                "properties": {
+                                    "tags": {
+                                        "$ref": "#/components/schemas/Tags"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns the value of the updated schema.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Tags",
+                                    "properties": {
+                                        "tags": {
+                                            "$ref": "#/components/schemas/Tags"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The provided schema is invalid. The details will be in the response."
+                    },
+                    "401": {
+                        "description": "Unauthorized. You do not have permissions to perform this action."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RegistrationEvent": {
+                "title": "Event Detail Schema",
+                "required": [
+                    "eventName",
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "documentType": {
+                        "type": "object"
+                    },
+                    "id": {
+                        "pattern": "^[1-9]\\d*$",
+                        "type": "string",
+                        "description": "The event ID for this event."
+                    },
+                    "eventName": {
+                        "pattern": "^[a-zA-Z][a-zA-Z0-9]+$",
+                        "type": "string",
+                        "description": "The name of the event."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The event's description."
+                    },
+                    "startDate": {
+                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                        "type": "string",
+                        "description": "An optional start date for the event."
+                    },
+                    "endDate": {
+                        "pattern": "(?:[1-9][0-9]*)?[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?)?$",
+                        "type": "string",
+                        "description": "An optional end date for the event."
+                    },
+                    "_ts": {
+                        "type": "integer",
+                        "description": "The timestamp in epoch time."
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Profile": {
+                "title": "Profile Schema",
+                "required": [
+                    "email",
+                    "id",
+                    "identities"
+                ],
+                "type": "object",
+                "properties": {
+                    "identities": {
+                        "uniqueItems": false,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Identities"
+                        }
+                    },
+                    "id": {
+                        "pattern": "^(\\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\\}{0,1})$",
+                        "type": "string",
+                        "description": "The unique identifier for the profile."
+                    },
+                    "email": {
+                        "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                        "type": "string",
+                        "description": "The email address for this profile (must be unique)"
+                    },
+                    "_ts": {
+                        "type": "integer",
+                        "description": "The timestamp in epoch time."
+                    },
+                    "contact": {
+                        "$ref": "#/components/schemas/Contact"
+                    },
+                    "events": {
+                        "$ref": "#/components/schemas/Events"
+                    }
+                }
+            },
+            "Identities": {
+                "title": "Identities",
+                "type": "object",
+                "properties": {
+                    "oid": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Contact": {
+                "title": "Contact",
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "company": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "businessEmail": {
+                        "pattern": "^[\\w!#$%&'*+\\-/=?\\^_`{|}~]+(\\.[\\w!#$%&'*+\\-/=?\\^_`{|}~]+)*@(([\\-\\w]+\\.)+[a-zA-Z]{2,4})|([0-9]{1,3}\\.{3}[0-9]{1,3})$",
+                        "type": "string"
+                    },
+                    "businessPhone": {
+                        "pattern": "^[\\s0-9()*+]+$",
+                        "type": "string"
+                    },
+                    "mobilePhone": {
+                        "pattern": "^[\\s0-9()*+]+$",
+                        "type": "string"
+                    }
+                }
+            },
+            "Events": {
+                "title": "Events",
+                "type": "object",
+                "properties": {
+                    "igniteTourRoadshowFY19": {
+                        "$ref": "#/components/schemas/IgniteTourRoadshowFY19"
+                    }
+                }
+            },
+            "IgniteTourRoadshowFY19": {
+                "title": "IgniteTourRoadshowFY19",
+                "type": "object",
+                "properties": {
+                    "eventProfile": {
+                        "$ref": "#/components/schemas/EventProfile"
+                    },
+                    "saoPaulo": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "berlin": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "johannesburg": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "toronto": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "sydney": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "singapore": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "telAviv": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "milan": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "washingtonDC": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "hongKong": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "london": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "amsterdam": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "dubai": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "seoul": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "mexicoCity": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "stockholm": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    },
+                    "mumbai": {
+                        "$ref": "#/components/schemas/SaoPaulo"
+                    }
+                }
+            },
+            "EventProfile": {
+                "title": "EventProfile",
+                "type": "object",
+                "properties": {
+                    "roleDescribes": {
+                        "type": "string"
+                    },
+                    "numberEmployees": {
+                        "type": "string"
+                    },
+                    "mpnMember": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "languagePreference": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SaoPaulo": {
+                "title": "SaoPaulo",
+                "type": "object",
+                "properties": {
+                    "registrantStatus": {
+                        "enum": [
+                            "Incomplete",
+                            "Approved",
+                            "Registered",
+                            "Waiting List",
+                            "Cancelled",
+                            "Deleted"
+                        ],
+                        "type": "string"
+                    },
+                    "registrantType": {
+                        "enum": [
+                            "Corp Staff",
+                            "Crew",
+                            "Field Staff",
+                            "General Attendee",
+                            "Microsoft Speaker",
+                            "Non-Attending Manager",
+                            "Press Analyst",
+                            "Public Sector",
+                            "Speaker",
+                            "Sponsor Staff",
+                            "Support Staff"
+                        ],
+                        "type": "string"
+                    }
+                }
+            },
+            "Operation": {
+                "title": "Operation",
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "title": "Operation",
+                        "type": "object"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "op": {
+                        "type": "string"
+                    },
+                    "from": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ProfileCredential": {
+                "title": "ProfileCredential",
+                "type": "object",
+                "properties": {
+                    "oid": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TagSchema": {
+                "title": "Tags",
+                "properties": {
+                    "tags": {
+                        "$ref": "#/components/schemas/Tags"
+                    }
+                }
+            },
+            "Tags": {
+                "title": "Tags",
+                "type": "object",
+                "additionalProperties": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "pattern": "^((#)((/)([a-z]|[A-Z]|[0-9])+)+)?$",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
